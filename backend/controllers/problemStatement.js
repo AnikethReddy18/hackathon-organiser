@@ -1,4 +1,4 @@
-import { createProblemStatement, getProblemStatements, createCategory } from "../queries.js"
+import { createProblemStatement, getProblemStatements, createCategory, getProblemStatementsByCategory } from "../queries.js"
 
 export async function createProblemStatementController(req, res) {
 	const { title, description, category } = req.body;
@@ -17,4 +17,12 @@ export async function createCategoryController(req, res) {
 	res.send(200)
 }
 
+export async function getCategoriesController(req, res) {
+	const data = await getCategories()
+	res.send(data)
+}
 
+export async function getProblemStatementsByCategoryController(req, res) {
+	const data = await getProblemStatementsByCategory(req.params.category)
+	res.send(data)
+}

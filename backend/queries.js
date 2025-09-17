@@ -23,6 +23,11 @@ export async function createCategory(name) {
 	})
 }
 
+export async function getCategories() {
+	const catergories = await prisma.category.findMany()
+	return catergories
+}
+
 export async function getCategory(name) {
 	const cat = await prisma.category.findUnique({
 		where: { name }
@@ -41,4 +46,13 @@ export async function createProblemStatement(title, description, cat) {
 export async function getProblemStatements() {
 	const problemStatements = await prisma.problemStatement.findMany()
 	return problemStatements
+}
+
+export async function getProblemStatementsByCategory(cat) {
+	const { id } = await getCategory(cat)
+	const data = await prisma.problemStatement.findMany({
+		where: {
+			categoryId: id
+		}
+	})
 }
